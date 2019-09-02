@@ -1,0 +1,72 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#include "BaseBannerMainWidget.h"
+#include "Components/TextBlock.h"
+#include "Components/Image.h"
+#include "BannerGameModeBase.h"
+
+#include "Engine/TextureRenderTarget2D.h"
+#include "Slate/SceneViewport.h"
+#include "Slate/WidgetRenderer.h"
+#include "Kismet/KismetRenderingLibrary.h"
+
+void UBaseBannerMainWidget::NativePreConstruct()
+{
+	UUserWidget::NativePreConstruct();
+}
+
+void UBaseBannerMainWidget::NativeConstruct()
+{
+	UUserWidget::NativeConstruct();
+}
+
+void UBaseBannerMainWidget::DropFile(FString file)
+{
+	FString ext = FPaths::GetExtension(file).ToLower();
+	if (ext=="png"||ext=="jpg"|| ext == "jpeg")
+	{
+		UTexture2D* texture = ABannerGameModeBase::LoadTexture(file);
+		if (texture != nullptr)
+		{
+			OnDropImage(texture);
+			mDropFileName = file;
+		}
+	}
+	else
+	{
+		OnDropVideo(file);
+		mDropFileName = file;
+	}
+}
+
+
+FString UBaseBannerMainWidget::RenderWidgetToFile(UUserWidget* widget, FString title, FString channel)
+{
+	if (mDropFileName.IsEmpty())
+	{
+		return "";
+	}
+
+	UTextureRenderTarget2D* widgetRT = NewObject<UTextureRenderTarget2D>(this);
+	bool bIsSRGB = false;
+	EPixelFormat PixelFormat = PF_B8G8R8A8;
+	FIntPoint ScreenshotSize(1440, 900);
+
+	widgetRT->ClearColor = FLinearColor::Transparent;
+	widgetRT->RenderTargetFormat = ETextureRenderTargetFormat::RTF_RGBA8;
+	widgetRT->InitCustomFormat(ScreenshotSize.X, ScreenshotSize.Y, PixelFormat, !bIsSRGB);
+
+	FWidgetRenderer* WidgetRenderer = new FWidgetRenderer(true, false);
+	check(WidgetRenderer);
+	WidgetRenderer->DrawWidget(widgetRT, widget->TakeWidget(), ScreenshotSize, 0.f);
+	FlushRenderingCommands();
+	BeginCleanup(WidgetRenderer);
+
+	FString resultFilePath = FPaths::GetPath(mDropFileName);
+	FString resultFileName = FPaths::GetBaseFilename(mDropFileName);
+	resultFileName += "_" + title + +"_"+channel+".png";
+
+	UKismetRenderingLibrary::ExportRenderTarget(this, widgetRT, resultFilePath, resultFileName);
+
+	return FPaths::Combine(resultFilePath, resultFileName);
+}

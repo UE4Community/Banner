@@ -1,0 +1,13 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{A3C661DF-4811-038B-F6E7-DABEA73F25E6}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "Banner",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}

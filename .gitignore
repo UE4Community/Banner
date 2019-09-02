@@ -30,3 +30,13 @@
 *.exe
 *.out
 *.app
+
+.vs
+Art
+Binaries
+Build
+DerivedDataCache
+Intermediate
+Saved
+Banner.sln
+GenProject2019.bat
