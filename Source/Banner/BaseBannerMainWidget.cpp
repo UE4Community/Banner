@@ -23,7 +23,7 @@ void UBaseBannerMainWidget::NativeConstruct()
 void UBaseBannerMainWidget::DropFile(FString file)
 {
 	FString ext = FPaths::GetExtension(file).ToLower();
-	if (ext=="png"||ext=="jpg"|| ext == "jpeg")
+	if (ext == "png" || ext == "jpg" || ext == "jpeg")
 	{
 		UTexture2D* texture = ABannerGameModeBase::LoadTexture(file);
 		if (texture != nullptr)
@@ -40,12 +40,31 @@ void UBaseBannerMainWidget::DropFile(FString file)
 }
 
 
-FString UBaseBannerMainWidget::RenderWidgetToFile(UUserWidget* widget, FString title, FString channel)
+FString UBaseBannerMainWidget::RenderWidgetToFile(UUserWidget* widget, FString title, FString channel, bool isExclusive)
 {
 	if (mDropFileName.IsEmpty())
 	{
 		return "";
 	}
+
+	FString resultFilePath = FPaths::GetPath(mDropFileName);
+	FString resultFileName = FPaths::GetBaseFilename(mDropFileName);
+
+	if (isExclusive)
+	{
+		IFileManager& fileManager = IFileManager::Get();
+		TArray<FString> outFiles;
+		fileManager.FindFiles(outFiles, *resultFilePath, TEXT("*.png"));
+		for (FString file : outFiles)
+		{
+			if(file.Find(resultFileName,ESearchCase::CaseSensitive)==0)
+			{
+				FString fileFullPath= FPaths::Combine(resultFilePath, file);
+				fileManager.Delete(*fileFullPath);
+			}
+		}
+	}
+
 
 	UTextureRenderTarget2D* widgetRT = NewObject<UTextureRenderTarget2D>(this);
 	bool bIsSRGB = false;
@@ -62,9 +81,8 @@ FString UBaseBannerMainWidget::RenderWidgetToFile(UUserWidget* widget, FString t
 	FlushRenderingCommands();
 	BeginCleanup(WidgetRenderer);
 
-	FString resultFilePath = FPaths::GetPath(mDropFileName);
-	FString resultFileName = FPaths::GetBaseFilename(mDropFileName);
-	resultFileName += "_" + title + +"_"+channel+".png";
+
+	resultFileName += "_" + title + +"_" + channel + ".png";
 
 	UKismetRenderingLibrary::ExportRenderTarget(this, widgetRT, resultFilePath, resultFileName);
 

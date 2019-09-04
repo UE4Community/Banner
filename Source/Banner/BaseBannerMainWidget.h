@@ -25,7 +25,7 @@ public:
 		void OnExportImage();
 
 	UFUNCTION(BlueprintCallable)
-		FString RenderWidgetToFile(UUserWidget* widget,FString title,FString channel);
+		FString RenderWidgetToFile(UUserWidget* widget,FString title,FString channel,bool isExclusive=false);
 
 	UFUNCTION(BlueprintImplementableEvent)
 		void OnDropImage(UTexture2D* texture);
