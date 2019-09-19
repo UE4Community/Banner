@@ -18,8 +18,6 @@ public:
 	virtual void BeginPlay();
 	UFUNCTION(BlueprintCallable, Category = "Banner")
 		static UTexture2D* LoadTexture(FString fullPath);
-	static UTexture2D* LoadTextureEx(FString fullPath, TSharedPtr<IImageWrapper>* outImageWrapper);
-
 public:
 	UPROPERTY(EditDefaultsOnly)
 		TSubclassOf<UBaseBannerMainWidget> BannerWidgetClass;
