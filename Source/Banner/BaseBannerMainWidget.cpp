@@ -83,6 +83,7 @@ FString UBaseBannerMainWidget::RenderWidgetToFile(UUserWidget* widget, FString t
 
 
 	resultFileName += "_" + title + +"_" + channel + ".png";
+	resultFileName.ReplaceInline(TEXT("&"), TEXT("and"));
 
 	UKismetRenderingLibrary::ExportRenderTarget(this, widgetRT, resultFilePath, resultFileName);
 

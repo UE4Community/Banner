@@ -1,0 +1,1 @@
+"E:\Epic Games\UE_4.24\Engine\Binaries\DotNET\UnrealBuildTool.exe"  -projectfiles -project="D:/EpicGit/Banner/Banner.uproject" -game -engine -progress -2019

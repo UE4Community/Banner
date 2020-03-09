@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "SCompoundWidget.h"
+#include "Widgets/SCompoundWidget.h"
+
 class UBaseBannerMainWidget;
 
 class BANNER_API SDropWidget : public SCompoundWidget
