@@ -54,6 +54,19 @@ bool UBannerSettings::FindFont(FString id, FBannerFont& ResultFont) const
 	return false;
 }
 
+bool UBannerSettings::FindBannerTag(FString id, FBannerTagConfigItem& ResultItem) const
+{
+	for (const FBannerTagConfigItem& item : Tags)
+	{
+		if (item.Id == id)
+		{
+			ResultItem = item;
+			return true;
+		}
+	}
+	return false;
+}
+
 FString UBannerSettings::DefaultBannerId() const
 {
 	return Items.Top().Id;
@@ -68,5 +81,10 @@ FString UBannerSettings::DefaultFontId() const
 {
 	return Fonts.Top().Id;
 
+}
+
+FString UBannerSettings::DefaultBannerTagId() const
+{
+	return Tags.Top().Id;
 }
 

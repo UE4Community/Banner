@@ -12,4 +12,4 @@ void FBannerModule::ShutdownModule()
 }
 
 
-IMPLEMENT_MODULE(FBannerModule, Banner)
+IMPLEMENT_PRIMARY_GAME_MODULE(FBannerModule, Banner,"Banner")

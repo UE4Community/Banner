@@ -18,6 +18,8 @@ public:
 		FString SelectedIcon;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FString SelectedBanner;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FString SelectedTag;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		bool IsExclusive;

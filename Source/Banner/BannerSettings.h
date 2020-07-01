@@ -37,8 +37,25 @@ struct BANNER_API FBannerConfigItem
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FString Id;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FString Title;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (Tooltip = "ÆµµÀ"))
 		FString Channel;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FColor Color;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool Show = true;
+};
+
+USTRUCT(BlueprintType)
+struct BANNER_API FBannerTagConfigItem
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FString Id;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		FString Title;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		FColor Color;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -71,7 +88,8 @@ public:
 		bool FindIcon(FString id, FBannerIcon& ResultIcon)const;
 	UFUNCTION( BlueprintPure)
 		bool FindFont(FString id, FBannerFont& ResultFont)const;
-
+	UFUNCTION(BlueprintPure)
+		bool FindBannerTag(FString id, FBannerTagConfigItem& ResultItem)const;
 
 	UFUNCTION(BlueprintPure)
 		FString DefaultBannerId()const;
@@ -79,6 +97,8 @@ public:
 		FString DefaultIconId()const;
 	UFUNCTION(BlueprintPure)
 		FString DefaultFontId()const;
+	UFUNCTION(BlueprintPure)
+		FString DefaultBannerTagId()const;
 public:
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite)
 		TArray<FBannerIcon> Icons;
@@ -87,5 +107,8 @@ public:
 
 	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite)
 		TArray<FBannerConfigItem> Items;
+
+	UPROPERTY(Config, EditAnywhere, BlueprintReadWrite)
+		TArray<FBannerTagConfigItem> Tags;
 private:
 };

@@ -32,6 +32,7 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 		void OnDropVideo(const FString& file);
+
 protected:
 	FString mDropFileName;
 };

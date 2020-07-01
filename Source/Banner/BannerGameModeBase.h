@@ -15,7 +15,7 @@ class BANNER_API ABannerGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 public:
-	virtual void BeginPlay();
+	virtual void BeginPlay() override;
 	UFUNCTION(BlueprintCallable, Category = "Banner")
 		static UTexture2D* LoadTexture(FString fullPath);
 public:

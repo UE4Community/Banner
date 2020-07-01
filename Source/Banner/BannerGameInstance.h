@@ -28,6 +28,8 @@ public:
 		FBannerIcon GetSelectedIcon()const;
 	UFUNCTION(BlueprintPure)
 		FBannerFont GetSelectedFont()const;
+	UFUNCTION(BlueprintPure)
+		FBannerTagConfigItem GetSelectedTag()const;
 public:
 	UPROPERTY(BlueprintReadOnly)
 		UBannerSave* Save;

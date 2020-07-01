@@ -18,10 +18,7 @@ void UBannerGameInstance::Init()
 	{
 		Save = Cast<UBannerSave>(UGameplayStatics::CreateSaveGameObject(UBannerSave::StaticClass()));
 		Save->Reset();
-
-
 	}
-
 }
 
 void UBannerGameInstance::Shutdown()
@@ -59,5 +56,12 @@ FBannerFont UBannerGameInstance::GetSelectedFont() const
 {
 	FBannerFont item;
 	UBannerSettings::BannerSettings()->FindFont(Save->SelectedFont, item);
+	return item;
+}
+
+FBannerTagConfigItem UBannerGameInstance::GetSelectedTag() const
+{
+	FBannerTagConfigItem item;
+	UBannerSettings::BannerSettings()->FindBannerTag(Save->SelectedTag, item);
 	return item;
 }
