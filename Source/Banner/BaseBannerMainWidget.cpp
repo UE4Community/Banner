@@ -54,7 +54,7 @@ FString UBaseBannerMainWidget::RenderWidgetToFile(UUserWidget* widget, FString t
 	{
 		IFileManager& fileManager = IFileManager::Get();
 		TArray<FString> outFiles;
-		fileManager.FindFiles(outFiles, *resultFilePath, TEXT("*.png"));
+		fileManager.FindFiles(outFiles, *resultFilePath, TEXT("*.jpg"));
 		for (FString file : outFiles)
 		{
 			if(file.Find(resultFileName,ESearchCase::CaseSensitive)==0)
@@ -69,10 +69,11 @@ FString UBaseBannerMainWidget::RenderWidgetToFile(UUserWidget* widget, FString t
 	UTextureRenderTarget2D* widgetRT = NewObject<UTextureRenderTarget2D>(this);
 	bool bIsSRGB = false;
 	EPixelFormat PixelFormat = PF_B8G8R8A8;
-	FIntPoint ScreenshotSize(1440, 900);
+	FIntPoint ScreenshotSize(2880, 1800);	//4K 3840*2160 1440*900
+	
 
-	widgetRT->ClearColor = FLinearColor::Transparent;
-	widgetRT->RenderTargetFormat = ETextureRenderTargetFormat::RTF_RGBA8;
+	widgetRT->ClearColor = FLinearColor::Black;
+	widgetRT->RenderTargetFormat = ETextureRenderTargetFormat::RTF_RG8;
 	widgetRT->InitCustomFormat(ScreenshotSize.X, ScreenshotSize.Y, PixelFormat, !bIsSRGB);
 
 	FWidgetRenderer* WidgetRenderer = new FWidgetRenderer(true, false);
@@ -82,7 +83,7 @@ FString UBaseBannerMainWidget::RenderWidgetToFile(UUserWidget* widget, FString t
 	BeginCleanup(WidgetRenderer);
 
 
-	resultFileName += "_" + title + +"_" + channel + ".png";
+	resultFileName += "_" + title + +"_" + channel + ".jpg";
 	resultFileName.ReplaceInline(TEXT("&"), TEXT("and"));
 
 	UKismetRenderingLibrary::ExportRenderTarget(this, widgetRT, resultFilePath, resultFileName);
