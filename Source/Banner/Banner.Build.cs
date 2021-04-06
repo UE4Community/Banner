@@ -8,7 +8,7 @@ public class Banner : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore","UMG", "Slate","SlateCore", "ApplicationCore", "ImageWrapper","RenderCore","RHI" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore","UMG", "Slate","SlateCore", "ApplicationCore", "ImageWrapper","RenderCore","RHI", "DeveloperSettings" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 		
