@@ -5,7 +5,7 @@
 #include "Blueprint/UserWidget.h"
 #include "BaseBannerMainWidget.generated.h"
 
-UCLASS(Blueprintable, BlueprintType, Abstract,Category = "Banner")
+UCLASS(Blueprintable, BlueprintType, Abstract, Category = "Banner")
 class BANNER_API UBaseBannerMainWidget : public UUserWidget
 {
 	GENERATED_BODY()
@@ -19,13 +19,13 @@ public:
 	void DropFile(FString file);
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void OnMoveImage(FVector2D delta);
+		void OnMoveImage(FVector2D delta);
 
 	UFUNCTION(BlueprintImplementableEvent)
 		void OnExportImage();
 
 	UFUNCTION(BlueprintCallable)
-		FString RenderWidgetToFile(UUserWidget* widget,FString title,FString channel,bool isExclusive=false);
+		FString RenderWidgetToFile(UUserWidget* widget, FString title, FString channel, bool isExclusive = false);
 
 	UFUNCTION(BlueprintImplementableEvent)
 		void OnDropImage(UTexture2D* texture);
@@ -33,6 +33,8 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 		void OnDropVideo(const FString& file);
 
+private:
+	static bool ExportRenderTarget2DAsJpeg(UTextureRenderTarget2D* TexRT, FArchive& Ar);
 protected:
 	FString mDropFileName;
 };
